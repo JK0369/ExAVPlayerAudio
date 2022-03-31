@@ -64,6 +64,7 @@ class ViewController: UIViewController {
       let elapsedSecondsInt = Int(self.elapsedTimeSecondsFloat)
       let elapsedTimeText = String(format: "%02d:%02d", elapsedSecondsInt.miniuteDigitInt, elapsedSecondsInt.secondsDigitInt)
       self.elapsedTimeLabel.text = elapsedTimeText
+      self.progressValue = self.elapsedTimeSecondsFloat / self.totalTimeSecondsFloat
     }
   }
   var totalTimeSecondsFloat: Float64 = 0 {
@@ -72,11 +73,10 @@ class ViewController: UIViewController {
       let totalSecondsInt = Int(self.totalTimeSecondsFloat)
       let totalTimeText = String(format: "%02d:%02d", totalSecondsInt.miniuteDigitInt, totalSecondsInt.secondsDigitInt)
       self.totalTimeLabel.text = totalTimeText
-      self.progressValue = self.elapsedTimeSecondsFloat / self.totalTimeSecondsFloat
     }
   }
   var progressValue: Float64? {
-    didSet { self.playSlider.value = Float(self.progressValue ?? 0.0) }
+    didSet { self.playSlider.value = Float(self.elapsedTimeSecondsFloat / self.totalTimeSecondsFloat) }
   }
   
   override func viewDidLoad() {
