@@ -72,7 +72,7 @@ class ViewController: UIViewController {
       let totalSecondsInt = Int(self.totalTimeSecondsFloat)
       let totalTimeText = String(format: "%02d:%02d", totalSecondsInt.miniuteDigitInt, totalSecondsInt.secondsDigitInt)
       self.totalTimeLabel.text = totalTimeText
-      self.progressValue = self.elapsedTimeSecondsFloat ?? 0 / self.totalTimeSecondsFloat
+      self.progressValue = self.elapsedTimeSecondsFloat / self.totalTimeSecondsFloat
     }
   }
   var progressValue: Float64? {
