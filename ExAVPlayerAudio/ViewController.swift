@@ -108,8 +108,16 @@ class ViewController: UIViewController {
   private func addPeriodicTimeObserver() {
     let interval = CMTimeMakeWithSeconds(1, preferredTimescale: Int32(NSEC_PER_SEC))
     self.player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] elapsedTime in
-      self?.elapsedTimeSecondsFloat = CMTimeGetSeconds(elapsedTime)
-      self?.totalTimeSecondsFloat = CMTimeGetSeconds(self?.player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+      let elapsedTimeSecondsFloat = CMTimeGetSeconds(elapsedTime)
+      let totalTimeSecondsFloat = CMTimeGetSeconds(self?.player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+      guard
+        !elapsedTimeSecondsFloat.isNaN,
+        !elapsedTimeSecondsFloat.isInfinite,
+        !totalTimeSecondsFloat.isNaN,
+        !totalTimeSecondsFloat.isInfinite
+      else { return }
+      self?.elapsedTimeSecondsFloat = elapsedTimeSecondsFloat
+      self?.totalTimeSecondsFloat = totalTimeSecondsFloat
     }
   }
   
